@@ -15,13 +15,9 @@ class Board extends React.Component {
   }
 
   renderSquares() {
-    let squares = [];
-
-    for (let i = 0; i < this.props.squares.length; i++) {
-      squares.push(this.renderSquare(i));
-    }
-
-    return squares;
+    return this.props.squares.map((square, index) => {
+      return this.renderSquare(index);
+    });
   }
 
   renderSquare(id) {
