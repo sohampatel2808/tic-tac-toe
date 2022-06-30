@@ -1,0 +1,7 @@
+.board-game {
+  display: grid;
+  width: 300px;
+  padding: 10px;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+}
