@@ -1,8 +1,15 @@
+import React from 'react';
+
 import './App.css';
+import Board from './Board';
 
 function App() {
   return (
-    <h1>Hello World!</h1>
+    <React.Fragment>
+      <h1>App Component</h1>
+
+      <Board />
+    </React.Fragment>
   );
 }
 
