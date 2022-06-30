@@ -4,12 +4,6 @@ import './Board.css';
 import Square from "./Square";
 
 class Board extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   render() {
     return (
       <React.Fragment>

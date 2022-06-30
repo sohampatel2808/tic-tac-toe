@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   handleClick(id) {
-    if (this.state.squares[id] || this.calculateWinner(this.state.squares)) {
+    if (this.state.squares[id] || this.calculateWinner()) {
       // value present in current square, do nothing
       return;
     }
@@ -45,7 +45,8 @@ class App extends React.Component {
     });
   }
 
-  calculateWinner(squares) {
+  calculateWinner() {
+    const squares = this.state.squares;
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -70,7 +71,7 @@ class App extends React.Component {
 
   getGameStatus() {
     let status;
-    let winner = this.calculateWinner(this.state.squares)
+    let winner = this.calculateWinner()
 
     if (winner) {
       status = "Winner: " + winner;
