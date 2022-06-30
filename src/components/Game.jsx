@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './App.css';
+import './Game.css';
 import Board from './Board';
 import History from './History';
 
