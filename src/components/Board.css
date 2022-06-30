@@ -1,7 +1,11 @@
 .board-game {
   display: grid;
-  width: 300px;
-  padding: 10px;
+  width: 200px;
   grid-template-columns: auto auto auto;
-  background-color: #2196F3;
+  background-color: #ffff80;
+}
+
+.board-game, .game-status {
+  margin: 20px;
+  font-weight: 700;
 }

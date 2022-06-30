@@ -6,9 +6,11 @@ class History extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <p>History: </p>
+        <div className='history-container'>
+          <p>History: </p>
 
-        {this.getMoves(this.props.history)}
+          {this.getMoves(this.props.history)}
+        </div>
       </React.Fragment>
     );
   }
