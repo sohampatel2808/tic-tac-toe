@@ -46,7 +46,7 @@ class App extends React.Component {
     let cloneHistory = this.state.history.slice(0, this.state.stepNumber + 1);
     let cloneCurrentState = this.getCurrentState().slice();
 
-    if (cloneCurrentState[id] || this.calculateWinner()) {
+    if (cloneCurrentState[id] || this.calculateWinner(this.getCurrentState())) {
       // value present in current square, do nothing
       return;
     }
@@ -70,8 +70,7 @@ class App extends React.Component {
     })
   }
 
-  calculateWinner() {
-    const currentState = this.getCurrentState();
+  calculateWinner(state) {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -86,20 +85,33 @@ class App extends React.Component {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
 
-      if (currentState[a] && currentState[a] === currentState[b] && currentState[a] === currentState[c]) {
-        return currentState[a];
+      if (state[a] && state[a] === state[b] && state[a] === state[c]) {
+        return state[a];
       }
     }
 
     return null;
   }
 
+  checkForDraw(state) {
+    for (let i = 0; i < state.length; i++) {
+      if (state[i] === null) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   getGameStatus() {
     let status;
-    let winner = this.calculateWinner();
+    let currentState = this.getCurrentState();
+    let winner = this.calculateWinner(currentState);
 
     if (winner) {
       status = "Winner: " + winner;
+    } else if (this.checkForDraw(currentState)) {
+      status = 'Draw!';
     } else {
       status = "Next Player: " + this.getCurrentPlayer();
     }
