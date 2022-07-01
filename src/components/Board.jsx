@@ -15,7 +15,7 @@ class Board extends React.Component {
   }
 
   renderSquares() {
-    return this.props.squares.map((square, index) => {
+    return this.props.state.map((square, index) => {
       return this.renderSquare(index);
     });
   }
@@ -23,7 +23,7 @@ class Board extends React.Component {
   renderSquare(id) {
     return (
       <Square 
-        value={this.props.squares[id]}
+        value={this.props.state[id]}
         onClick={this.handleClick.bind(this, id)} />
     );
   }

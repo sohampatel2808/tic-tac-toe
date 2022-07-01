@@ -13,7 +13,7 @@ class App extends React.Component {
 
     this.state = {
       history: [
-        { squares: Array(9).fill(null) }
+        { state: Array(9).fill(null) }
       ],
       stepNumber: 0,
       currPlayerX: true
@@ -24,7 +24,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Board
-          squares={this.getCurrentSquaresData()}
+          state={this.getCurrentState()}
           handleClick={this.handleClick}/>
 
         <div className="game-status">
@@ -40,17 +40,17 @@ class App extends React.Component {
 
   handleClick(id) {
     let cloneHistory = this.state.history.slice(0, this.state.stepNumber + 1);
-    let cloneCurrentSquares = this.getCurrentSquaresData().slice();
+    let cloneCurrentState = this.getCurrentState().slice();
 
-    if (cloneCurrentSquares[id] || this.calculateWinner()) {
+    if (cloneCurrentState[id] || this.calculateWinner()) {
       // value present in current square, do nothing
       return;
     }
 
     // set value of current square
-    cloneCurrentSquares[id] = this.getCurrentPlayer();
+    cloneCurrentState[id] = this.getCurrentPlayer();
     // push squares data in history array
-    cloneHistory.push({squares: cloneCurrentSquares});
+    cloneHistory.push({state: cloneCurrentState});
 
     this.setState({
       history: cloneHistory,
@@ -67,7 +67,7 @@ class App extends React.Component {
   }
 
   calculateWinner() {
-    const currentSquares = this.getCurrentSquaresData();
+    const currentSquares = this.getCurrentState();
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -103,9 +103,9 @@ class App extends React.Component {
     return status;
   }
 
-  getCurrentSquaresData() {
+  getCurrentState() {
     const current = this.state.history[this.state.stepNumber];
-    return current.squares;
+    return current.state;
   }
 
   getCurrentPlayer() {
