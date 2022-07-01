@@ -67,7 +67,7 @@ class App extends React.Component {
   }
 
   calculateWinner() {
-    const currentSquares = this.getCurrentState();
+    const currentState = this.getCurrentState();
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -82,8 +82,8 @@ class App extends React.Component {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
 
-      if (currentSquares[a] && currentSquares[a] === currentSquares[b] && currentSquares[a] === currentSquares[c]) {
-        return currentSquares[a];
+      if (currentState[a] && currentState[a] === currentState[b] && currentState[a] === currentState[c]) {
+        return currentState[a];
       }
     }
 
