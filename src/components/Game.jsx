@@ -22,19 +22,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Board
-          state={this.getCurrentState()}
-          handleClick={this.handleClick}/>
+      <div className='container'>
+        <div className='board-container'>
+          <Board
+            state={this.getCurrentState()}
+            handleClick={this.handleClick}/>
 
-        <div className="game-status">
-          {this.getGameStatus()}
+          <div className="game-status">
+            {this.getGameStatus()}
+          </div>
         </div>
 
-        <History 
-          history={this.state.history}
-          jumptoStep={this.jumptoStep} />
-      </React.Fragment>
+        <div className='history-container'>
+          <History 
+            history={this.state.history}
+            jumptoStep={this.jumptoStep} />
+        </div>
+      </div>
     );
   }
 

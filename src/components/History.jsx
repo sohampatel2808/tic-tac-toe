@@ -1,17 +1,13 @@
 import React from 'react';
 
-import './History.css';
-
 class History extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className='history-container'>
-          <div className='moves-container'>
-            <div>X</div>
-            <div>0</div>
-            {this.getMovesList(this.props.history)}
-          </div>
+        <div className='moves-container'>
+          <div>X</div>
+          <div>0</div>
+          {this.getMovesList(this.props.history)}
         </div>
       </React.Fragment>
     );

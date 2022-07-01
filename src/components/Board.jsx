@@ -1,13 +1,12 @@
 import React from "react";
 
-import './Board.css';
 import Square from "./Square";
 
 class Board extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div class="board-game">
+        <div class="board">
           {this.renderSquares()}
         </div>
       </React.Fragment>
