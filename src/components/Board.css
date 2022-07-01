@@ -1,11 +1,15 @@
 .board-game {
   display: grid;
-  width: 200px;
-  grid-template-columns: auto auto auto;
+  width: 160px;
+  grid-template-columns: repeat(3, 1fr);
   background-color: #ffff80;
 }
 
 .board-game, .game-status {
-  margin: 20px;
+  margin: 16px auto;
   font-weight: 700;
+}
+
+.game-status {
+  text-align: center;
 }

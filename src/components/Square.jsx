@@ -5,12 +5,11 @@ import './Square.css';
 class Square extends React.Component {
   render() {
     const props = this.props;
-    const value = props.value ? props.value : <span>&nbsp;&nbsp;</span>;
 
     return (
       <React.Fragment>
         <button class="square" onClick={props.onClick}>
-          {value}
+          {props.value}
         </button>
       </React.Fragment>
     );
