@@ -13,7 +13,7 @@ class App extends React.Component {
 
     this.state = {
       history: [
-        { state: Array(9).fill(null) }
+        { state: Array(9).fill(null), move: -1 }
       ],
       stepNumber: 0,
       currPlayerX: true
@@ -50,7 +50,7 @@ class App extends React.Component {
     // set value of current square
     cloneCurrentState[id] = this.getCurrentPlayer();
     // push squares data in history array
-    cloneHistory.push({state: cloneCurrentState});
+    cloneHistory.push({state: cloneCurrentState, move: id});
 
     this.setState({
       history: cloneHistory,

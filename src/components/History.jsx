@@ -9,15 +9,15 @@ class History extends React.Component {
         <div className='history-container'>
           <p>History: </p>
 
-          {this.getMoves(this.props.history)}
+          {this.getMovesList(this.props.history)}
         </div>
       </React.Fragment>
     );
   }
 
-  getMoves(moves) {
-    return moves.map((move, step) => {
-      const desc = step ? "Go to step #" + step : "Go to Game start";
+  getMovesList(history) {
+    return history.map((current, step) => {
+      const desc = step ? "Go to step #" + step + " " + this.getMoveCoordinate(current.move) : "Go to Game start";
 
       return (
         <li key={step}>
@@ -31,6 +31,13 @@ class History extends React.Component {
 
   handleClick(step) {
     this.props.jumptoStep(step);
+  }
+
+  getMoveCoordinate(index) {
+    const row = Math.floor(index / 3) + 1;
+    const col = (index % 3) + 1;
+
+    return ("(" + row + "," + col + ")");
   }
 }
 
