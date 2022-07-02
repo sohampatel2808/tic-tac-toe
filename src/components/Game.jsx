@@ -17,10 +17,7 @@ class App extends React.Component {
       history: [
         { state: Array(9).fill(null), move: -1 }
       ],
-      score: {
-        playerX: 0,
-        player0: 0
-      },
+      score: { playerX: 0, player0: 0 },
       stepNumber: 0,
       currPlayerX: true,
       gameCompleted: false
@@ -36,11 +33,11 @@ class App extends React.Component {
             state={this.getCurrentState()}
             handleClick={this.handleClick}/>
 
-          <div className="game-status">
+          <div className='game-status'>
             {
               this.state.gameCompleted
                 ? this.getGameCompletedStatus()
-                : "Next Player: " + this.getCurrentPlayer()
+                : 'Next Player: ' + this.getCurrentPlayer()
             }
           </div>
         </div>
@@ -60,6 +57,8 @@ class App extends React.Component {
   handleClick(id) {
     let cloneHistory = this.state.history.slice(0, this.state.stepNumber + 1);
     let cloneCurrentState = this.getCurrentState().slice();
+    let gameCompleted = false;
+    let cloneScore = { ...this.state.score };
 
     if (cloneCurrentState[id] || this.state.gameCompleted) {
       // value present in current square, do nothing
@@ -71,8 +70,6 @@ class App extends React.Component {
     // push state data and move into history array
     cloneHistory.push({state: cloneCurrentState, move: id});
 
-    let gameCompleted = false;
-    let cloneScore = {...this.state.score};
     const winner = calculateWinner(cloneCurrentState)
     if (winner) {
       gameCompleted = true;
@@ -113,11 +110,6 @@ class App extends React.Component {
     });
   }
 
-  getDefaultGameData() {
-    return {
-    }
-  }
-
   getCurrentState() {
     const current = this.state.history[this.state.stepNumber];
     return current.state;
@@ -133,7 +125,7 @@ class App extends React.Component {
     let winner = calculateWinner(lastState.state);
 
     if (winner) {
-      status = "Winner: " + winner;
+      status = 'Winner: ' + winner;
     } else if (checkForDraw(lastState.state)) {
       status = 'Draw!';
     }

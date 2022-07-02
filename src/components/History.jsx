@@ -11,13 +11,15 @@ class History extends React.Component {
             <div className='player-name'>Player X</div>
             <div className='player-name'>Player 0</div>
 
-            <div className='player-score'>{this.props.score.playerX + " - "}{this.props.score.player0}</div>
-            
+            <div className='player-score'>{`${this.props.score.playerX} - ${this.props.score.player0}`}</div>
+
             {this.getMovesList()}
           </div>
         </div>
 
-        <button className="button" disabled={this.props.history.length <= 1} onClick={this.props.restartGame}>Restart Game</button>
+        <button className='button' disabled={this.props.history.length <= 1} onClick={this.props.restartGame}>
+          Restart Game
+        </button>
       </React.Fragment>
     );
   }
@@ -28,7 +30,7 @@ class History extends React.Component {
         return;
       }
 
-      let desc = "Go to step #" + step + " " + getMoveCoordinate(current.move)
+      let desc = `Go to step #${step} ${getMoveCoordinate(current.move)}`;
 
       if (step === this.props.step) {
         desc = <span style={{fontWeight: 600}}>{desc}</span>
@@ -36,7 +38,7 @@ class History extends React.Component {
 
       return (
         <li key={step}>
-          <button className="move-item" onClick={this.handleClick.bind(this, step)}>
+          <button className='move-item' onClick={this.handleClick.bind(this, step)}>
             {desc}
           </button>
         </li>

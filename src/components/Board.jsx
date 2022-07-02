@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import Square from "./Square";
+import Square from './Square';
 
 class Board extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div class="board">
+        <div class='board'>
           {this.renderSquares()}
         </div>
       </React.Fragment>
@@ -14,18 +14,11 @@ class Board extends React.Component {
   }
 
   renderSquares() {
-    return this.props.state.map((square, index) => {
-      return this.renderSquare(index);
-    });
-  }
+    const props = this.props;
 
-  renderSquare(id) {
-    return (
-      <Square 
-        gameCompleted={this.props.gameCompleted}
-        value={this.props.state[id]}
-        onClick={this.handleClick.bind(this, id)} />
-    );
+    return props.state.map((square, index) => {
+      return <Square gameCompleted={props.gameCompleted} value={props.state[index]} onClick={this.handleClick.bind(this, index)} />
+    });
   }
 
   handleClick(id) {

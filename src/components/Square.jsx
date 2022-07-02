@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class Square extends React.Component {
   render() {
@@ -6,7 +6,7 @@ class Square extends React.Component {
 
     return (
       <React.Fragment>
-        <button class="square" disabled={this.props.gameCompleted} onClick={props.onClick}>
+        <button class='square' disabled={props.gameCompleted} onClick={props.onClick}>
           {props.value}
         </button>
       </React.Fragment>
