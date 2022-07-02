@@ -9,7 +9,7 @@ class History extends React.Component {
           <div className='player-name'>X</div>
           <div className='player-name'>0</div>
           
-          {this.getMovesList(this.props.history)}
+          {this.getMovesList()}
           </div>
         </div>
 
@@ -18,13 +18,17 @@ class History extends React.Component {
     );
   }
 
-  getMovesList(history) {
-    return history.map((current, step) => {
+  getMovesList() {
+    return this.props.history.map((current, step) => {
       if (current.move === -1) {
         return;
       }
 
-      const desc = "Go to step #" + step + " " + this.getMoveCoordinate(current.move);
+      let desc = "Go to step #" + step + " " + this.getMoveCoordinate(current.move);
+
+      if (step === this.props.step) {
+        desc = <strong>{desc}</strong>;
+      }
 
       return (
         <li key={step}>

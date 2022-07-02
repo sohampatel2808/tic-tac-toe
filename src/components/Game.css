@@ -4,10 +4,11 @@ body {
 
 .container {
   display: flex;
+  width: 800px;
+  margin: 0 auto;
 }
 
 .board-container, .history-container {
-  width: 50%;
   margin: 28px;
 }
 
@@ -15,6 +16,7 @@ body {
   border: 1px solid black;
   border-radius: 8px;
   padding: 16px;
+  width: 350px;
 }
 .history-container li {
   list-style-type: none;
@@ -55,6 +57,7 @@ body {
 }
 
 .move-item {
+  width: 150px;
   padding: 6px 12px;
   background-color: #BEBEBE;
   border-right: none;

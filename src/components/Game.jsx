@@ -31,12 +31,13 @@ class App extends React.Component {
             handleClick={this.handleClick}/>
 
           <div className="game-status">
-            {this.getGameStatus(this.getCurrentState())}
+            {this.state.gameCompleted ? this.getGameCompletedStatus() : "Next Player: " + this.getCurrentPlayer()}
           </div>
         </div>
 
         <div className='history-container'>
           <History 
+            step={this.state.stepNumber}
             history={this.state.history}
             jumptoStep={this.jumptoStep}
             restartGame={this.restartGame} />
@@ -132,16 +133,15 @@ class App extends React.Component {
     return true;
   }
 
-  getGameStatus(state) {
+  getGameCompletedStatus() {
+    const lastState = this.state.history[this.state.history.length - 1];
     let status;
-    let winner = this.calculateWinner(state);
+    let winner = this.calculateWinner(lastState.state);
 
     if (winner) {
       status = "Winner: " + winner;
-    } else if (this.checkForDraw(state)) {
+    } else if (this.checkForDraw(lastState.state)) {
       status = 'Draw!';
-    } else {
-      status = "Next Player: " + this.getCurrentPlayer();
     }
 
     return status;
