@@ -5,11 +5,11 @@ class History extends React.Component {
     return (
       <React.Fragment>
         <div className='moves-container'>
-        <div className='grid-container'>
-          <div className='player-name'>X</div>
-          <div className='player-name'>0</div>
-          
-          {this.getMovesList()}
+          <div className='grid-container'>
+            <div className='player-name'>X</div>
+            <div className='player-name'>0</div>
+            
+            {this.getMovesList()}
           </div>
         </div>
 

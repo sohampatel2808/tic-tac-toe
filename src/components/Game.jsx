@@ -12,14 +12,7 @@ class App extends React.Component {
     this.jumptoStep = this.jumptoStep.bind(this);
     this.restartGame = this.restartGame.bind(this);
 
-    this.state = {
-      history: [
-        { state: Array(9).fill(null), move: -1 }
-      ],
-      stepNumber: 0,
-      currPlayerX: true,
-      gameCompleted: false
-    }
+    this.state = this.getDefaultGameState();
   }
 
   render() {
@@ -58,7 +51,7 @@ class App extends React.Component {
 
     // set value of current square
     cloneCurrentState[id] = this.getCurrentPlayer();
-    // push squares data in history array
+    // push state data in history array
     cloneHistory.push({state: cloneCurrentState, move: id});
 
     if (this.calculateWinner(cloneCurrentState) || this.checkForDraw(cloneCurrentState)) {
@@ -81,14 +74,18 @@ class App extends React.Component {
   }
 
   restartGame() {
-    this.setState({
+    this.setState(this.getDefaultGameState());
+  }
+
+  getDefaultGameState() {
+    return {
       history: [
         { state: Array(9).fill(null), move: -1 }
       ],
       stepNumber: 0,
       currPlayerX: true,
       gameCompleted: false
-    });
+    }
   }
 
   getCurrentState() {
