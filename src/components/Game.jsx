@@ -3,6 +3,7 @@ import React from 'react';
 import './Game.css';
 import Board from './Board';
 import History from './History';
+import { calculateWinner, checkForDraw } from './utils/Helper';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,18 @@ class App extends React.Component {
     this.jumptoStep = this.jumptoStep.bind(this);
     this.restartGame = this.restartGame.bind(this);
 
-    this.state = this.getDefaultGameData();
+    this.state = {
+      history: [
+        { state: Array(9).fill(null), move: -1 }
+      ],
+      score: {
+        playerX: 0,
+        player0: 0
+      },
+      stepNumber: 0,
+      currPlayerX: true,
+      gameCompleted: false
+    };
   }
 
   render() {
@@ -20,11 +32,16 @@ class App extends React.Component {
       <div className='container'>
         <div className='board-container'>
           <Board
+            gameCompleted={this.state.gameCompleted}
             state={this.getCurrentState()}
             handleClick={this.handleClick}/>
 
           <div className="game-status">
-            {this.state.gameCompleted ? this.getGameCompletedStatus() : "Next Player: " + this.getCurrentPlayer()}
+            {
+              this.state.gameCompleted
+                ? this.getGameCompletedStatus()
+                : "Next Player: " + this.getCurrentPlayer()
+            }
           </div>
         </div>
 
@@ -32,6 +49,7 @@ class App extends React.Component {
           <History 
             step={this.state.stepNumber}
             history={this.state.history}
+            score={this.state.score}
             jumptoStep={this.jumptoStep}
             restartGame={this.restartGame} />
         </div>
@@ -40,7 +58,6 @@ class App extends React.Component {
   }
 
   handleClick(id) {
-    let gameCompleted = false;
     let cloneHistory = this.state.history.slice(0, this.state.stepNumber + 1);
     let cloneCurrentState = this.getCurrentState().slice();
 
@@ -51,15 +68,27 @@ class App extends React.Component {
 
     // set value of current square
     cloneCurrentState[id] = this.getCurrentPlayer();
-    // push state data in history array
+    // push state data and move into history array
     cloneHistory.push({state: cloneCurrentState, move: id});
 
-    if (this.calculateWinner(cloneCurrentState) || this.checkForDraw(cloneCurrentState)) {
+    let gameCompleted = false;
+    let cloneScore = {...this.state.score};
+    const winner = calculateWinner(cloneCurrentState)
+    if (winner) {
+      gameCompleted = true;
+
+      if (winner === 'X') {
+        cloneScore.playerX = cloneScore.playerX + 1;
+      } else if (winner === '0') {
+        cloneScore.player0 = cloneScore.player0 + 1;
+      }
+    } else if (checkForDraw(cloneCurrentState)) {
       gameCompleted = true;
     }
 
     this.setState({
       history: cloneHistory,
+      score: cloneScore,
       stepNumber: cloneHistory.length - 1,
       currPlayerX: !this.state.currPlayerX,
       gameCompleted: gameCompleted
@@ -74,17 +103,18 @@ class App extends React.Component {
   }
 
   restartGame() {
-    this.setState(this.getDefaultGameData());
-  }
-
-  getDefaultGameData() {
-    return {
+    this.setState({
       history: [
         { state: Array(9).fill(null), move: -1 }
       ],
       stepNumber: 0,
       currPlayerX: true,
       gameCompleted: false
+    });
+  }
+
+  getDefaultGameData() {
+    return {
     }
   }
 
@@ -97,47 +127,14 @@ class App extends React.Component {
     return this.state.currPlayerX ? 'X' : '0';
   }
 
-  calculateWinner(state) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-
-      if (state[a] && state[a] === state[b] && state[a] === state[c]) {
-        return state[a];
-      }
-    }
-
-    return null;
-  }
-
-  checkForDraw(state) {
-    for (let i = 0; i < state.length; i++) {
-      if (state[i] === null) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
   getGameCompletedStatus() {
     const lastState = this.state.history[this.state.history.length - 1];
     let status;
-    let winner = this.calculateWinner(lastState.state);
+    let winner = calculateWinner(lastState.state);
 
     if (winner) {
       status = "Winner: " + winner;
-    } else if (this.checkForDraw(lastState.state)) {
+    } else if (checkForDraw(lastState.state)) {
       status = 'Draw!';
     }
 

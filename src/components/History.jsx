@@ -1,13 +1,17 @@
 import React from 'react';
 
+import { getMoveCoordinate } from './utils/Helper';
+
 class History extends React.Component {
   render() {
     return (
       <React.Fragment>
         <div className='moves-container'>
           <div className='grid-container'>
-            <div className='player-name'>X</div>
-            <div className='player-name'>0</div>
+            <div className='player-name'>Player X</div>
+            <div className='player-name'>Player 0</div>
+
+            <div className='player-score'>{this.props.score.playerX + " - "}{this.props.score.player0}</div>
             
             {this.getMovesList()}
           </div>
@@ -24,10 +28,10 @@ class History extends React.Component {
         return;
       }
 
-      let desc = "Go to step #" + step + " " + this.getMoveCoordinate(current.move);
+      let desc = "Go to step #" + step + " " + getMoveCoordinate(current.move)
 
       if (step === this.props.step) {
-        desc = <strong>{desc}</strong>;
+        desc = <span style={{fontWeight: 600}}>{desc}</span>
       }
 
       return (
@@ -42,13 +46,6 @@ class History extends React.Component {
 
   handleClick(step) {
     this.props.jumptoStep(step);
-  }
-
-  getMoveCoordinate(index) {
-    const row = Math.floor(index / 3) + 1;
-    const col = (index % 3) + 1;
-
-    return ("(" + row + "," + col + ")");
   }
 }
 

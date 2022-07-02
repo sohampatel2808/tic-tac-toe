@@ -6,7 +6,7 @@ class Square extends React.Component {
 
     return (
       <React.Fragment>
-        <button class="square" onClick={props.onClick}>
+        <button class="square" disabled={this.props.gameCompleted} onClick={props.onClick}>
           {props.value}
         </button>
       </React.Fragment>

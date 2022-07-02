@@ -22,6 +22,7 @@ class Board extends React.Component {
   renderSquare(id) {
     return (
       <Square 
+        gameCompleted={this.props.gameCompleted}
         value={this.props.state[id]}
         onClick={this.handleClick.bind(this, id)} />
     );
