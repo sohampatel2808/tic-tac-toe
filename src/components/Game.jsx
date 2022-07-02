@@ -12,7 +12,7 @@ class App extends React.Component {
     this.jumptoStep = this.jumptoStep.bind(this);
     this.restartGame = this.restartGame.bind(this);
 
-    this.state = this.getDefaultGameState();
+    this.state = this.getDefaultGameData();
   }
 
   render() {
@@ -74,10 +74,10 @@ class App extends React.Component {
   }
 
   restartGame() {
-    this.setState(this.getDefaultGameState());
+    this.setState(this.getDefaultGameData());
   }
 
-  getDefaultGameState() {
+  getDefaultGameData() {
     return {
       history: [
         { state: Array(9).fill(null), move: -1 }
