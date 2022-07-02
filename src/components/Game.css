@@ -11,6 +11,7 @@ body {
 }
 .history-container li {
   list-style-type: none;
+  margin: 8px;
 }
 
 .game-status {
@@ -39,4 +40,8 @@ body {
   width: 300px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+}
+.player-name {
+  font-size: 20px;
+  text-align: center;
 }

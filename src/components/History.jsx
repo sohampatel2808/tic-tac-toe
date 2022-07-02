@@ -5,10 +5,12 @@ class History extends React.Component {
     return (
       <React.Fragment>
         <div className='moves-container'>
-          <div>X</div>
-          <div>0</div>
+          <div className='player-name'>X</div>
+          <div className='player-name'>0</div>
           {this.getMovesList(this.props.history)}
         </div>
+
+        <button disabled={this.props.history.length <= 1} onClick={this.props.restartGame}>Restart Game</button>
       </React.Fragment>
     );
   }

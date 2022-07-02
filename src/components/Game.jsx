@@ -10,13 +10,15 @@ class App extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.jumptoStep = this.jumptoStep.bind(this);
+    this.restartGame = this.restartGame.bind(this);
 
     this.state = {
       history: [
         { state: Array(9).fill(null), move: -1 }
       ],
       stepNumber: 0,
-      currPlayerX: true
+      currPlayerX: true,
+      gameCompleted: false
     }
   }
 
@@ -29,24 +31,26 @@ class App extends React.Component {
             handleClick={this.handleClick}/>
 
           <div className="game-status">
-            {this.getGameStatus()}
+            {this.getGameStatus(this.getCurrentState())}
           </div>
         </div>
 
         <div className='history-container'>
           <History 
             history={this.state.history}
-            jumptoStep={this.jumptoStep} />
+            jumptoStep={this.jumptoStep}
+            restartGame={this.restartGame} />
         </div>
       </div>
     );
   }
 
   handleClick(id) {
+    let gameCompleted = false;
     let cloneHistory = this.state.history.slice(0, this.state.stepNumber + 1);
     let cloneCurrentState = this.getCurrentState().slice();
 
-    if (cloneCurrentState[id] || this.calculateWinner(this.getCurrentState())) {
+    if (cloneCurrentState[id] || this.state.gameCompleted) {
       // value present in current square, do nothing
       return;
     }
@@ -56,10 +60,15 @@ class App extends React.Component {
     // push squares data in history array
     cloneHistory.push({state: cloneCurrentState, move: id});
 
+    if (this.calculateWinner(cloneCurrentState) || this.checkForDraw(cloneCurrentState)) {
+      gameCompleted = true;
+    }
+
     this.setState({
       history: cloneHistory,
       stepNumber: cloneHistory.length - 1,
-      currPlayerX: !this.state.currPlayerX
+      currPlayerX: !this.state.currPlayerX,
+      gameCompleted: gameCompleted
     });
   }
 
@@ -68,6 +77,26 @@ class App extends React.Component {
       stepNumber: step,
       currPlayerX: (step % 2) === 0
     })
+  }
+
+  restartGame() {
+    this.setState({
+      history: [
+        { state: Array(9).fill(null), move: -1 }
+      ],
+      stepNumber: 0,
+      currPlayerX: true,
+      gameCompleted: false
+    });
+  }
+
+  getCurrentState() {
+    const current = this.state.history[this.state.stepNumber];
+    return current.state;
+  }
+
+  getCurrentPlayer() {
+    return this.state.currPlayerX ? 'X' : '0';
   }
 
   calculateWinner(state) {
@@ -103,29 +132,19 @@ class App extends React.Component {
     return true;
   }
 
-  getGameStatus() {
+  getGameStatus(state) {
     let status;
-    let currentState = this.getCurrentState();
-    let winner = this.calculateWinner(currentState);
+    let winner = this.calculateWinner(state);
 
     if (winner) {
       status = "Winner: " + winner;
-    } else if (this.checkForDraw(currentState)) {
+    } else if (this.checkForDraw(state)) {
       status = 'Draw!';
     } else {
       status = "Next Player: " + this.getCurrentPlayer();
     }
 
     return status;
-  }
-
-  getCurrentState() {
-    const current = this.state.history[this.state.stepNumber];
-    return current.state;
-  }
-
-  getCurrentPlayer() {
-    return this.state.currPlayerX ? 'X' : '0';
   }
 }
 
