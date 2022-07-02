@@ -22,8 +22,8 @@ body button {
   border: 2px solid black;
   border-radius: 8px;
   padding: 16px;
-  margin: 28px;
-  min-width: 360px;
+  margin: 28px auto;
+  width: 360px;
 }
 .history-container li {
   list-style-type: none;
@@ -108,4 +108,15 @@ body button {
 .button:disabled {
   cursor: default;
   opacity: 0.7;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    max-width: 400px;
+  }
+
+  .board-container {
+    margin-top: 28px;
+  }
 }
